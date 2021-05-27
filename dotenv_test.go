@@ -35,7 +35,7 @@ func TestParseKV(t *testing.T) {
 			line: "asdf",
 			k:    "",
 			v:    "",
-			err:  invalidExprErr,
+			err:  errInvalidExpr,
 		},
 		{
 			line: "A=a",
@@ -89,13 +89,13 @@ func TestParseKV(t *testing.T) {
 			line: "export A B=a",
 			k:    "",
 			v:    "",
-			err:  keySpaceErr,
+			err:  errKeyContainsSpace,
 		},
 		{
 			line: "INVALID LINE",
 			k:    "",
 			v:    "",
-			err:  invalidExprErr,
+			err:  errInvalidExpr,
 		},
 	}
 

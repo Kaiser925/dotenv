@@ -9,8 +9,8 @@ import (
 	"strings"
 )
 
-var invalidExprErr = errors.New("not valid expression, missing '='")
-var keySpaceErr = errors.New("key contains space")
+var errInvalidExpr = errors.New("not valid expression, missing '='")
+var errKeyContainsSpace = errors.New("key contains space")
 
 // Load loads env files and set environment variables.
 // If not specify files, it will try to load .env file.
@@ -117,12 +117,12 @@ func parseKV(line string) (string, string, error) {
 
 	equalIndex := strings.Index(line, "=")
 	if equalIndex == -1 {
-		return "", "", invalidExprErr
+		return "", "", errInvalidExpr
 	}
 
 	k := strings.TrimSpace(line[:equalIndex])
 	if strings.Contains(k, " ") {
-		return "", "", keySpaceErr
+		return "", "", errKeyContainsSpace
 	}
 	v := strings.TrimSpace(line[equalIndex+1:])
 	v = strings.Trim(v, "\"")
